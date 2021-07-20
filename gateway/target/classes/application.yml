@@ -1,0 +1,43 @@
+server:
+  port: 8083
+  
+spring:
+  application:
+    name: API-GATEWAY
+  cloud:
+    gateway:
+      routes:
+      - id: EMPLOYEE-SERVICE
+        uri:
+          lb://EMPLOYEE-SERVICE
+        predicates:
+        - Path=/employee/**
+      - id: OFFER-SERVICE
+        uri:
+          lb://OFFER-SERVICE
+        predicates:
+        - Path=/offer/**
+      - id: POINT-SERVICE
+        uri:
+          lb://POINT-SERVICE
+        predicates:
+        - Path=/points/
+      - id: AUTHENTICATION-SERVICE
+        uri:
+          lb://AUTHENTICATION-SERVICE
+        predicates:
+        - Path=/auth/**
+      - id: FRONTEND-SERVICE
+        uri:
+          lb://FRONTEND-SERVICE
+        predicates:
+        - Path=/frontend/**
+      
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    hostname: localhost
+    
